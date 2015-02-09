@@ -24,8 +24,8 @@ public class User extends Model {
     @OneToMany(mappedBy = "author")
     List<Album> albums;
 
-    public User(String username, String password, String email) {
-        this.username = username;
+    public User(String password, String email) {
+
         this.password = password;
         this.email = email;
         this.albums = new ArrayList<>();

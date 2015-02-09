@@ -12,6 +12,5 @@ public class Comment extends Model {
 
     public String author;
     public Date commentDate;
-    @ManyToOne
-    public Post post;
+
 }
