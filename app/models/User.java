@@ -3,6 +3,7 @@ package models;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.Constraint;
 import java.util.ArrayList;
@@ -14,6 +15,12 @@ import java.util.List;
  */
 public class User extends Model {
 
+    @Id
+    public Long id;
+    @Constraints.Required
+    public String firstname;
+    @Constraints.Required
+    public String lastname;
     @Constraints.Required
     public String username;
     @Constraints.Required
@@ -24,10 +31,12 @@ public class User extends Model {
     @OneToMany(mappedBy = "author")
     List<Album> albums;
 
-    public User(String password, String email) {
+    public User(String password, String email, String firstname, String lastname) {
 
         this.password = password;
         this.email = email;
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.albums = new ArrayList<>();
         this.dateCreated = new Date();
     }
