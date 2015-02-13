@@ -40,4 +40,14 @@ public class User extends Model {
         this.albums = new ArrayList<>();
         this.dateCreated = new Date();
     }
+
+    public static Model.Finder<Long, User> find = new Model.Finder (
+            Long.class, User.class
+    );
+
+    public static User authenticate(String email, String password){
+        return User.find.where().eq("email", email)
+                .eq("password", password)
+                .findUnique();
+    }
 }

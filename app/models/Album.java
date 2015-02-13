@@ -3,6 +3,7 @@ package models;
 import play.db.ebean.Model;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.util.Date;
@@ -13,6 +14,8 @@ import java.util.List;
  */
 public class Album extends Model {
 
+    @Id
+    public Long id;
     public String title;
     public String description;
     public Date dateCreated;
@@ -25,5 +28,16 @@ public class Album extends Model {
         this.author = author;
         this.title = title;
         this.dateCreated = new Date();
+    }
+
+    public static Model.Finder<Long, Album> find = new Model.Finder(
+      Long.class, Album.class
+    );
+
+    public static Album create(Album album,String title, Long user){
+        album.author = User.find.ref(user);
+        album.title = title;
+        album.save();
+        return album;
     }
 }
