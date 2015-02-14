@@ -46,7 +46,6 @@ public class Application extends Controller {
     }
 
 
-
     public static Result login(){
         return ok(
                 login.render(Form.form(Login.class))
@@ -55,7 +54,7 @@ public class Application extends Controller {
 
     public static Result signup(){
         return ok(
-                signup.render(Form.form(SignUp.class))
+                signup.render(Form.form(User.class))
         );
 
     }
@@ -63,12 +62,12 @@ public class Application extends Controller {
     public static Result signin(){
         Form<Login> loginForm = Form.form(Login.class).bindFromRequest();
         if(loginForm.hasErrors()){
-            return badRequest();
+            return badRequest(login.render(loginForm));
         }else {
             session().clear();
             session("email", loginForm.get().email);
             return redirect(
-                    ""
+                    controllers.routes.Application.home()
             );
         }
     }
@@ -80,19 +79,18 @@ public class Application extends Controller {
     }
 
     public static Result register(){
+        Form<User> regForm = Form.form(User.class).bindFromRequest();
+        if(regForm.hasErrors()){
+            return badRequest(signup.render(regForm));
+        }else{
+            User regUser = regForm.get();
+            regUser.save();
+            flash("Register successful! Please log in");
+            return redirect(
+                    controllers.routes.Application.index()
+            );
+        }
 
-        return redirect("");
     }
-
-
-
-    public static class SignUp {
-        public String firstname;
-        public String lastname;
-        public String email;
-        public String password;
-        public String password2;
-    }
-
 
 }

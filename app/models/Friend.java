@@ -15,6 +15,7 @@ public class Friend extends Model{
     public User friend2;
 
 
+
     public static Model.Finder<Long, Friend> find = new Finder<Long, Friend>(
             Long.class, Friend.class
     );

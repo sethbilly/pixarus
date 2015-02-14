@@ -22,8 +22,6 @@ public class User extends Model {
     @Constraints.Required
     public String lastname;
     @Constraints.Required
-    public String username;
-    @Constraints.Required
     public String password;
     @Constraints.Email
     public String email;

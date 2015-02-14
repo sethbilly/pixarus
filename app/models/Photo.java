@@ -37,4 +37,5 @@ public class Photo extends Model {
         photo.save();
         return photo;
     }
+
 }

@@ -40,4 +40,13 @@ public class Album extends Model {
         album.save();
         return album;
     }
+
+    public static List<Album> findAlbums(Long user){
+        return  Album.find.where().idEq(User.find.byId(user)).findList();
+    }
+
+    public static void deleteAlbum(Long album){
+        Album albumTodelete = Album.find.byId(album);
+        albumTodelete.delete();
+    }
 }
