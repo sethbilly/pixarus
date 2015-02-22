@@ -48,4 +48,17 @@ public class User extends Model {
                 .eq("password", password)
                 .findUnique();
     }
+
+    public static User create(User user){
+        user.save();
+        return user;
+    }
+
+    public void deleteUser(Long id){
+        find.ref(id).delete();
+    }
+
+    public static void updateUser(Long id){
+        find.ref(id).update();
+    }
 }

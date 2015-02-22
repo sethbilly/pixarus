@@ -4,9 +4,9 @@ import play.mvc.Controller;
 import play.mvc.Security;
 
 /**
- * Created by billy on 2/7/15.
+ * Created by billy on 2/10/15.
  */
 
 @Security.Authenticated(Secured.class)
-public class Photo extends Controller {
+public class CommentController extends Controller {
 }

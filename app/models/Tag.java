@@ -22,4 +22,10 @@ public class Tag extends Model {
         this.title = title;
         this.photos.add(photo);
     }
+
+    public static Model.Finder<Long, Tag> find = new Model.Finder<>(
+            Long.class, Tag.class
+    );
+
+
 }

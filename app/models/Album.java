@@ -6,6 +6,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,9 +21,12 @@ public class Album extends Model {
     public String description;
     public Date dateCreated;
     @OneToMany(mappedBy = "album", cascade = CascadeType.ALL)
-    List<Photo> photos;
+    List<Photo> photos = new ArrayList<>();
     @ManyToOne
     public User author;
+
+    public Album() {
+    }
 
     public Album(String title, User author) {
         this.author = author;
@@ -34,19 +38,18 @@ public class Album extends Model {
       Long.class, Album.class
     );
 
-    public static Album create(Album album,String title, Long user){
-        album.author = User.find.ref(user);
-        album.title = title;
+    public static Album create(Album album){
         album.save();
         return album;
     }
 
-    public static List<Album> findAlbums(Long user){
-        return  Album.find.where().idEq(User.find.byId(user)).findList();
+    public static void deleteAlbum(Long album){
+
+        find.ref(album).delete();
     }
 
-    public static void deleteAlbum(Long album){
-        Album albumTodelete = Album.find.byId(album);
-        albumTodelete.delete();
+    public static List<Album> fetchAlbums(String email){
+        return Album.find.fetch("photos")
+                .where().eq("author.email", email).findList();
     }
 }

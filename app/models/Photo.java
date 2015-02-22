@@ -38,4 +38,8 @@ public class Photo extends Model {
         return photo;
     }
 
+    public static void deletePhoto(Long id){
+        find.ref(id).delete();
+    }
+
 }

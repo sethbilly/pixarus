@@ -2,14 +2,19 @@ package controllers;
 
 
 
+import models.Album;
 import models.User;
 import play.data.*;
 import play.mvc.*;
 import views.html.*;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Application extends Controller {
+
+    static Form<Album> albumForm = Form.form(Album.class).bindFromRequest();
 
     public  static class Login {
         public String email;
@@ -67,14 +72,14 @@ public class Application extends Controller {
             session().clear();
             session("email", loginForm.get().email);
             return redirect(
-                    controllers.routes.Application.home()
+                    routes.Application.home()
             );
         }
     }
 
     public static Result home(){
         return ok(
-                views.html.pages.home.render()
+            views.html.home.render(albumForm)
         );
     }
 
@@ -87,10 +92,58 @@ public class Application extends Controller {
             regUser.save();
             flash("Register successful! Please log in");
             return redirect(
-                    controllers.routes.Application.index()
+                    routes.Application.index()
             );
         }
 
+    }
+
+    public static Result logout(){
+        session().clear();
+        return redirect(
+                routes.Application.index()
+        );
+    }
+
+
+    public static Result ablums(){
+
+        String username = request().username();
+
+        List<Album> listOfAlbums = new ArrayList<>(Album.fetchAlbums(username));
+        return ok(
+                views.html.ablums.albumlist.render()
+        );
+    }
+
+    public static Result createAlbum(){
+        String username = request().username();
+        if(albumForm.hasErrors()){
+            return badRequest();
+        }else{
+            Album album = albumForm.get();
+            album.author = User.find.where().eq("email", username).findUnique();
+            album.save();
+            flash("New album created");
+            return redirect(
+                    routes.Application.home()
+            );
+        }
+
+    }
+
+    public static Result deleteAlbum(Long id){
+        Album.deleteAlbum(id);
+        flash("Album deleted successfully!");
+        return redirect(
+                routes.Application.home()
+        );
+    }
+
+    public static Result updateAlbum(Long id){
+        return redirect(
+                routes.Application.home()
+        );
     }
 
 }
