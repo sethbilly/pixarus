@@ -2,10 +2,7 @@ package models;
 
 import play.db.ebean.Model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,9 +10,11 @@ import java.util.List;
 /**
  * Created by billy on 2/4/15.
  */
+@Entity
 public class Album extends Model {
 
     @Id
+    @GeneratedValue
     public Long id;
     public String title;
     public String description;

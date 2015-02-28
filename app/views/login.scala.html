@@ -1,14 +1,11 @@
-@(form: Form[controllers.Application.Login])
-<html>
-    <head>
-        <title></title>
-    </head>
-    <body>
-        @helper.form(action = routes.Application.signin()){
+@(loginForm: Form[controllers.Application.Login])
+@import helper._
+@main("Pixarus-Signin"){
+        @form(action = routes.Application.signin()){
             <h1>Sign In</h1>
-            @if(form.hasGlobalErrors){
+            @if(loginForm.hasGlobalErrors){
                 <p class="error">
-                @form.globalError.message
+                @loginForm.globalError.message
                 </p>
             }
             @if(flash.contains("success")){
@@ -17,17 +14,16 @@
                 </p>
             }
             <p>
-                <input type="email" name="email" placeholder="Email" value="@form("email").value">
+                <input type="email" name="email" placeholder="Email" value="@loginForm("email").value">
             </p>
             <p>
-                <input type="password" name="password" placeholder="Password">
+                <input type="password" name="password" placeholder="Password" value="@loginForm("password").value">
             </p>
             <p>
-                <button type="submit">Login</button>
+                <input type="submit">Login</button>
             </p>
         }
-    </body>
-</html>
+}
 
 
 

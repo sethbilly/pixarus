@@ -1,5 +1,5 @@
-@(albumForm: Form[Album])(body: Html)
-
+@(albumForm: Form[Album])(padding: Html)(body: Html)
+@import helper._
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -30,7 +30,7 @@
             	</ul>
                
                 <ul class="nav hidden-xs" id="lg-menu">
-                    <li><a href="@routes.Application.ablums()"><i class="glyphicon glyphicon-list-alt"></i> Albums</a></li>
+                    <li><a href="@routes.Application.albums()"><i class="glyphicon glyphicon-list-alt"></i> Albums</a></li>
                     <li><a href=""><i class="glyphicon glyphicon-user"></i> Friends</a></li>
                 </ul>
 
@@ -79,7 +79,7 @@
                                     <a href="#postModal" role="button" data-toggle="modal"><span class="badge"> <i class="glyphicon glyphicon-plus"></i>New Album</span></a>
                                 </li>
                                 <li>
-                                    <a href="#"><span class="badge"><i class="glyphicon glyphicon-camera"></i>Upload Photos</span></a>
+                                    <a href="#photoDialog" role="button" data-toggle="modal"><span class="badge"><i class="glyphicon glyphicon-camera"></i>Upload Photos</span></a>
                                 </li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
@@ -95,7 +95,17 @@
 
                 </div>
                 <!-- /top nav -->
-              
+                <div class="padding">
+                    <div class="full col-sm-9">
+
+                            <!-- content -->
+                        <div class="row">
+                            @padding
+                        </div>
+
+                    </div><!-- /col-9 -->
+                </div><!-- /padding -->
+
                 <!-- /padding -->
             </div>
             <!-- /main -->
@@ -107,7 +117,9 @@
 
 
 <!--post modal-->
-    @views.html.ablums.createalbum.render(albumForm)
+    @views.html.ablums.createalbum(albumForm)
+
+    @views.html.photos.photoupload()
 
     @body
 	</body>

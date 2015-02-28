@@ -4,15 +4,16 @@
 
 # Home page
 GET           /                             controllers.Application.index()
+POST          /signin                       controllers.Application.signin()
+POST          /register                     controllers.Application.register()
 GET           /home                         controllers.Application.home()
 GET           /login                        controllers.Application.login()
-POST          /signin                       controllers.Application.signin()
 GET           /signup                       controllers.Application.signup()
-POST          /register                     controllers.Application.register()
 GET           /logout                       controllers.Application.logout()
+POST          /upload                       controllers.Application.upload()
 
 #Album routes
-GET            /albums                      controllers.Application.ablums()
+GET           /albums                       controllers.Application.albums()
 POST          /createAlbum                  controllers.Application.createAlbum()
 DELETE        /deleteAlbum:id/delete        controllers.Application.deleteAlbum(id: Long)
 POST          /updateAlbum:id/update        controllers.Application.updateAlbum(id: Long)

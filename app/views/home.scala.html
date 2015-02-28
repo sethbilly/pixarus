@@ -1,5 +1,8 @@
-@(albumForm: Form[Album])
+@(albumForm: Form[Album], listOfAlbums: List[Album])
 
 @views.html.layouts._index(albumForm){
+
+    @views.html.ablums.albumlist(listOfAlbums)
+}{
 
 }

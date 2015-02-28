@@ -16,6 +16,7 @@ public class Application extends Controller {
 
     static Form<Album> albumForm = Form.form(Album.class).bindFromRequest();
 
+
     public  static class Login {
         public String email;
         public String password;
@@ -67,7 +68,7 @@ public class Application extends Controller {
     public static Result signin(){
         Form<Login> loginForm = Form.form(Login.class).bindFromRequest();
         if(loginForm.hasErrors()){
-            return badRequest(login.render(loginForm));
+            return badRequest(index.render(loginForm));
         }else {
             session().clear();
             session("email", loginForm.get().email);
@@ -78,8 +79,10 @@ public class Application extends Controller {
     }
 
     public static Result home(){
+        String username = request().username();
+        List<Album> listOfAlbums = new ArrayList<>(Album.fetchAlbums(username));
         return ok(
-            views.html.home.render(albumForm)
+            views.html.home.render(albumForm, listOfAlbums)
         );
     }
 
@@ -90,7 +93,7 @@ public class Application extends Controller {
         }else{
             User regUser = regForm.get();
             regUser.save();
-            flash("Register successful! Please log in");
+            flash("Registration successful! Please log in");
             return redirect(
                     routes.Application.index()
             );
@@ -106,13 +109,13 @@ public class Application extends Controller {
     }
 
 
-    public static Result ablums(){
+    public static Result albums(){
 
         String username = request().username();
 
         List<Album> listOfAlbums = new ArrayList<>(Album.fetchAlbums(username));
         return ok(
-                views.html.ablums.albumlist.render()
+                views.html.ablums.albumlist.render(listOfAlbums)
         );
     }
 
