@@ -1,4 +1,4 @@
-@(albumForm: Form[Album])(padding: Html)(body: Html)
+@(albumForm: Form[Album])(padding: Html)
 @import helper._
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +30,7 @@
             	</ul>
                
                 <ul class="nav hidden-xs" id="lg-menu">
-                    <li><a href="@routes.Application.albums()"><i class="glyphicon glyphicon-list-alt"></i> Albums</a></li>
+                    <li><a href="@routes.Application.home()"><i class="glyphicon glyphicon-list-alt"></i> Albums</a></li>
                     <li><a href=""><i class="glyphicon glyphicon-user"></i> Friends</a></li>
                 </ul>
 
@@ -100,7 +100,9 @@
 
                             <!-- content -->
                         <div class="row">
-                            @padding
+                            <div class="panel panel-danger">
+                                @padding
+                            </div>
                         </div>
 
                     </div><!-- /col-9 -->
@@ -120,7 +122,5 @@
     @views.html.ablums.createalbum(albumForm)
 
     @views.html.photos.photoupload()
-
-    @body
 	</body>
 </html>

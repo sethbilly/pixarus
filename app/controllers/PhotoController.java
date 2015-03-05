@@ -1,6 +1,7 @@
 package controllers;
 
 import play.mvc.Controller;
+import play.mvc.Result;
 import play.mvc.Security;
 
 /**
@@ -8,5 +9,16 @@ import play.mvc.Security;
  */
 
 @Security.Authenticated(Secured.class)
+
 public class PhotoController extends Controller {
+
+    public static Result createPhoto(Long id){
+        return TODO;
+    }
+
+    public static Result deletePhoto(Long phootoId){
+        return TODO;
+    }
+
+
 }

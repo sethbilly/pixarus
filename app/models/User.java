@@ -44,6 +44,8 @@ public class User extends Model {
         this.dateCreated = new Date();
     }
 
+    public User() {}
+
     public static Model.Finder<Long, User> find = new Model.Finder (
             Long.class, User.class
     );

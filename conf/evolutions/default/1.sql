@@ -23,7 +23,7 @@ create table photo (
   description               varchar(255),
   photo_date                timestamp,
   photo_url                 varchar(255),
-  picture                   bytea,
+  picture                   blob,
   album_id                  bigint,
   constraint pk_photo primary key (id))
 ;
@@ -58,30 +58,34 @@ create sequence tag_seq;
 
 create sequence user_seq;
 
-alter table album add constraint fk_album_author_1 foreign key (author_id) references user (id);
+alter table album add constraint fk_album_author_1 foreign key (author_id) references user (id) on delete restrict on update restrict;
 create index ix_album_author_1 on album (author_id);
-alter table photo add constraint fk_photo_album_2 foreign key (album_id) references album (id);
+alter table photo add constraint fk_photo_album_2 foreign key (album_id) references album (id) on delete restrict on update restrict;
 create index ix_photo_album_2 on photo (album_id);
 
 
 
-alter table tag_photo add constraint fk_tag_photo_tag_01 foreign key (tag_id) references tag (id);
+alter table tag_photo add constraint fk_tag_photo_tag_01 foreign key (tag_id) references tag (id) on delete restrict on update restrict;
 
-alter table tag_photo add constraint fk_tag_photo_photo_02 foreign key (photo_id) references photo (id);
+alter table tag_photo add constraint fk_tag_photo_photo_02 foreign key (photo_id) references photo (id) on delete restrict on update restrict;
 
 # --- !Downs
 
-drop table if exists album cascade;
+SET REFERENTIAL_INTEGRITY FALSE;
 
-drop table if exists comment cascade;
+drop table if exists album;
 
-drop table if exists photo cascade;
+drop table if exists comment;
 
-drop table if exists tag cascade;
+drop table if exists photo;
 
-drop table if exists tag_photo cascade;
+drop table if exists tag;
 
-drop table if exists user cascade;
+drop table if exists tag_photo;
+
+drop table if exists user;
+
+SET REFERENTIAL_INTEGRITY TRUE;
 
 drop sequence if exists album_seq;
 

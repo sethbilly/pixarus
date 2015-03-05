@@ -30,6 +30,7 @@ public class Photo extends Model {
         this.photoUrl = photoUrl;
         this.album = album;
         this.picture = picture;
+        this.description = new String();
         this.photoDate = new Date();
     }
 
